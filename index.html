@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PPSO Somos Todos | Laura Fernández Presidente</title>
+    <style>
+        /* ========================================= */
+        /* Estilos Generales y Colores */
+        /* ========================================= */
+        :root {
+            --color-turquesa: #48D1CC; /* MediumTurquoise */
+            --color-negro: #333333;
+            --color-blanco: #FFFFFF;
+            --color-gris-claro: #f4f4f4;
+            --font-principal: 'Arial', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-principal);
+            margin: 0;
+            padding: 0;
+            color: var(--color-negro);
+            background-color: var(--color-blanco);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-weight: 700;
+        }
+
+        .container {
+            width: 85%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        .seccion {
+            padding: 60px 0;
+            border-bottom: 1px solid var(--color-gris-claro);
+        }
+
+        /* ========================================= */
+        /* Header y Navegación */
+        /* ========================================= */
+        header {
+            background-color: var(--color-negro);
+            color: var(--color-blanco);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: var(--color-turquesa);
+            text-decoration: none;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li a {
+            color: var(--color-blanco);
+            text-decoration: none;
+            padding: 10px 15px;
+            display: block;
+            transition: background-color 0.3s;
+        }
+
+        nav ul li a:hover {
+            background-color: var(--color-turquesa);
+            color: var(--color-negro);
+        }
+
+        /* ========================================= */
+        /* Sección Hero (INICIO) */
+        /* ========================================= */
+        #inicio {
+            background-color: var(--color-turquesa);
+            color: var(--color-blanco);
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        #inicio h1 {
+            font-size: 3.5em;
+            margin-bottom: 10px;
+        }
+
+        #inicio h2 {
+            font-size: 1.8em;
+            font-weight: 300;
+            margin-top: 0;
+        }
+
+        .boton-principal {
+            display: inline-block;
+            background-color: var(--color-negro);
+            color: var(--color-blanco);
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .boton-principal:hover {
+            background-color: #000000; /* Negro más oscuro */
+            transform: translateY(-2px);
+        }
+
+        /* ========================================= */
+        /* Sección Quiénes Somos */
+        /* ========================================= */
+        #quienes-somos .grid-quienes {
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+        }
+
+        .col-ppso, .col-laura {
+            flex: 1;
+        }
+        
+        .col-laura {
+            background-color: var(--color-gris-claro);
+            padding: 30px;
+            border-radius: 8px;
+        }
+
+        .principios li {
+            margin-bottom: 10px;
+            list-style: none;
+            padding-left: 1.5em;
+            position: relative;
+        }
+
+        .principios li::before {
+            content: '✅';
+            position: absolute;
+            left: 0;
+            color: var(--color-turquesa);
+        }
+
+        /* ========================================= */
+        /* Sección Plataforma (Acordeón Moderno) */
+        /* ========================================= */
+        #plataforma {
+            background-color: var(--color-gris-claro);
+        }
+
+        .acordeon-item {
+            margin-bottom: 10px;
+            border: 1px solid var(--color-turquesa);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .acordeon-titulo {
+            background-color: var(--color-turquesa);
+            color: var(--color-negro);
+            padding: 18px 25px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+        
+        .acordeon-titulo:hover {
+            background-color: #3bbfb8; /* Tono de turquesa ligeramente más oscuro */
+        }
+
+        .acordeon-contenido {
+            padding: 0 25px;
+            background-color: var(--color-blanco);
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
+        }
+
+        .acordeon-contenido.activo {
+            max-height: 500px; /* Suficientemente grande para el contenido */
+            padding: 25px;
+        }
+
+        /* ========================================= */
+        /* Footer */
+        /* ========================================= */
+        footer {
+            background-color: var(--color-negro);
+            color: var(--color-blanco);
+            text-align: center;
+            padding: 20px 0;
+            font-size: 0.9em;
+        }
+
+        /* Responsive Básico */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                display: none; /* Ocultar menú en móviles por simplicidad del ejemplo */
+            }
+            #inicio h1 {
+                font-size: 2.5em;
+            }
+            .grid-quienes {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#inicio" class="logo">PPSO SOMOS TODOS</a>
+                <ul>
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#quienes-somos">Quiénes Somos</a></li>
+                    <li><a href="#plataforma">Plataforma</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="inicio" class="seccion">
+        <div class="container">
+            <h1>LAURA FERNÁNDEZ PRESIDENTE</h1>
+            <h2>"Por un País Seguro, Próspero e Innovador"</h2>
+            <p>El Partido Pueblo Soberano (PPSO) presenta el Plan de Gobierno 2026-2030, comprometido con **continuar y profundizar el cambio** que Costa Rica necesita.</p>
+            <a href="#plataforma" class="boton-principal">CONOCE EL PLAN COMPLETO</a>
+        </div>
+    </section>
+
+    <section id="quienes-somos" class="seccion">
+        <div class="container">
+            <h2 style="text-align: center;">QUIÉNES SOMOS: Partido Pueblo Soberano</h2>
+            <div class="grid-quienes">
+                
+                <div class="col-ppso">
+                    <h3>Nuestro Propósito</h3>
+                    <p>El **PPSO** surge como una plataforma política comprometida con la visión de construir un País Seguro, Próspero e Innovador, donde la prioridad sea el bienestar general de las mayorías populares.</p>
+                    
+                    <h3>Nuestros 5 Principios Fundamentales</h3>
+                    <ul class="principios">
+                        <li>La vida, la familia y los valores.</li>
+                        <li>Un Estado eficiente, íntegro y cercano.</li>
+                        <li>Transparencia y tolerancia cero a la corrupción.</li>
+                        <li>Justicia social y oportunidades para todos.</li>
+                        <li>Innovación con propósito y sostenibilidad fiscal-ambiental.</li>
+                    </ul>
+                </div>
+                
+                <div class="col-laura">
+                    <h3 style="color: var(--color-turquesa);">Nuestra Líder: Laura Fernández Delgado</h3>
+                    <p>Laura Fernández es la candidata presidencial del **PPSO**. Su trayectoria en la función pública es sinónimo de **experiencia, rigor técnico y compromiso**.</p>
+                    
+                    <h4>Trayectoria Destacada:</h4>
+                    <ul>
+                        <li>**Ex Ministra de Planificación Nacional** y **Ex Ministra de la Presidencia**.</li>
+                        <li>Especialista en Políticas Públicas y Gobernabilidad Democrática (Magíster Científico).</li>
+                        <li>Galardonada por la UCR como el **mejor promedio del Sistema de Estudios de Posgrados**.</li>
+                    </ul>
+                    <p style="font-style: italic; font-size: 0.9em;">Experiencia en reforma del Estado, simplificación de trámites y gestión de proyectos de inversión pública.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="plataforma" class="seccion">
+        <div class="container">
+            <h2 style="text-align: center;">PLATAFORMA POLÍTICA (Plan de Gobierno 2026-2030)</h2>
+            <p style="text-align: center; margin-bottom: 40px;">Nuestros 5 ejes para transformar a Costa Rica en un país seguro, próspero e innovador.</p>
+
+            <div id="acordeon-plataforma">
+                
+                <div class="acordeon-item">
+                    <div class="acordeon-titulo">1. Seguridad y Justicia Humana <span>+</span></div>
+                    <div class="acordeon-contenido">
+                        <p><strong>Objetivo:</strong> Implementar un sistema integrado de seguridad humana y justicia para garantizar la protección del derecho a la vida y la propiedad.</p>
+                        <ul>
+                            <li>**Lucha contra el Crimen Organizado:** Puesta en funcionamiento del **Centro de Alta Contención contra el Crimen Organizado (“CACCO”)**.</li>
+                            <li>**Fortalecimiento Fronterizo:** Ampliación del 30% de efectivos de Migración y uso de **escáneres** en todas las fronteras.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="acordeon-item">
+                    <div class="acordeon-titulo">2. Competitividad, Eficiencia del Estado e Infraestructura Estratégica <span>+</span></div>
+                    <div class="acordeon-contenido">
+                        <p><strong>Objetivo:</strong> Impulsar el crecimiento económico, la eficiencia gubernamental y la modernización de las estructuras.</p>
+                        <ul>
+                            <li>**Eficiencia Estatal:** Eliminación de duplicidades y **digitalización de trámites**.</li>
+                            <li>**Fomento del Empleo:** Impulso a las **jornadas de excepción 4x3**.</li>
+                            <li>**Infraestructura:** Desarrollo de la **Red 5G** y evaluación del Tren Ruta Caribe y Tren Ruta Norte.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="acordeon-item">
+                    <div class="acordeon-titulo">3. Inclusión y Seguridad Social, Salud, Deporte y Recreación <span>+</span></div>
+                    <div class="acordeon-contenido">
+                        <p><strong>Objetivo:</strong> Garantizar la Justicia social y las oportunidades para todos, protegiendo los derechos y promoviendo el bienestar.</p>
+                        <ul>
+                            <li>**Pensiones:** Impulso a la **reforma a la Ley de Pensiones de IVM**.</li>
+                            <li>**Salud Pública:** Reducción de **listas de espera** mediante el fortalecimiento de la infraestructura y el sistema de gestión de citas.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="acordeon-item">
+                    <div class="acordeon-titulo">4. Modernización de Nuestra Educación y Promoción Eficiente de la Cultura <span>+</span></div>
+                    <div class="acordeon-contenido">
+                        <p><strong>Objetivo:</strong> Combatir el rezago educativo y la deserción escolar, priorizando la calidad y la pertinencia de la enseñanza.</p>
+                        <ul>
+                            <li>**Transformación Educativa:** Programa de **alfabetización digital y tecnológica** desde preescolar.</li>
+                            <li>**Reforma Curricular:** Enfoque en competencias y habilidades **STEM**.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="acordeon-item">
+                    <div class="acordeon-titulo">5. Sostenibilidad Ambiental y Resiliencia <span>+</span></div>
+                    <div class="acordeon-contenido">
+                        <p><strong>Objetivo:</strong> Proteger el recurso hídrico, fortalecer la resiliencia ante desastres naturales e impulsar una economía sostenible.</p>
+                        <ul>
+                            <li>**Gestión Hídrica:** Protección del **recurso hídrico** como eje transversal.</li>
+                            <li>**Resiliencia Climática:** Fortalecimiento de los **sistemas de alerta temprana** y priorización de **infraestructura resiliente**.</li>
+                            <li>**Sostenibilidad:** Fomento de las **inversiones verdes** y los programas de **PSA**.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            </div>
+    </section>
+
+    <section id="contacto" class="seccion">
+        <div class="container" style="text-align: center;">
+            <h2>Afiliación y Contacto</h2>
+            <p>Únete al movimiento del **Partido Pueblo Soberano**. Tu participación es clave para un País Seguro, Próspero e Innovador.</p>
+            <a href="#" class="boton-principal" style="background-color: var(--color-turquesa); color: var(--color-negro);">¡QUIERO AFILIARME!</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 PPSO Somos Todos. Todos los derechos reservados. | Laura Fernández Presidente.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const items = document.querySelectorAll('.acordeon-item');
+
+            items.forEach(item => {
+                const titulo = item.querySelector('.acordeon-titulo');
+                const contenido = item.querySelector('.acordeon-contenido');
+                const simbolo = titulo.querySelector('span');
+
+                // Asegurar que solo el primero esté abierto por defecto
+                if (item === items[0]) {
+                    contenido.classList.add('activo');
+                    simbolo.textContent = '–';
+                } else {
+                    contenido.classList.remove('activo');
+                    simbolo.textContent = '+';
+                }
+
+                titulo.addEventListener('click', () => {
+                    const estaActivo = contenido.classList.contains('activo');
+
+                    // Cerrar todos los demás
+                    items.forEach(otherItem => {
+                        const otherContenido = otherItem.querySelector('.acordeon-contenido');
+                        const otherSimbolo = otherItem.querySelector('span');
+                        otherContenido.classList.remove('activo');
+                        otherSimbolo.textContent = '+';
+                    });
+
+                    // Abrir o cerrar el actual
+                    if (!estaActivo) {
+                        contenido.classList.add('activo');
+                        simbolo.textContent = '–';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
